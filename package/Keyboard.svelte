@@ -62,14 +62,12 @@
       if (shifted && alphabet.includes(value)) output = value.toUpperCase();
       dispatch("keydown", output);
     }
-    event.stopPropagation();
-    return false;
-  };
-
-  const onKeyEnd = (value) => {
     setTimeout(() => {
       if (value === active) active = undefined;
     }, 50);
+
+    event.stopPropagation();
+    return false;
   };
 
   // reactive vars
@@ -111,10 +109,7 @@
               class="key key--{value} {keyClass[value] || ''}"
               class:single="{value.length === 1}"
               class:active="{value === active}"
-              on:touchstart="{(e) => onKeyStart(e, value)}"
-              on:mousedown="{(e) => onKeyStart(e, value)}"
-              on:touchend="{() => onKeyEnd(value)}"
-              on:mouseup="{() => onKeyEnd(value)}"
+              on:click="{(e) => onKeyStart(e, value)}"
             >
               {#if display.includes("<svg")}
                 {@html display}
